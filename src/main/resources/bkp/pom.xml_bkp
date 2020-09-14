@@ -1,0 +1,253 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.punya.springbootapps</groupId>
+  <artifactId>springboot_04_01_03_springREST_springJDBC_AngJS_war</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>springbootwardemo</name>
+    <description>springboot project to deploy in external tomcat or any server</description>
+  
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.2.RELEASE</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<failOnMissingWebXml>false</failOnMissingWebXml>
+		
+		<jquery.version>3.0.0</jquery.version>
+		<bootstrap.version>4.2.1</bootstrap.version>
+		<angularjs.version>1.4.9</angularjs.version>
+		
+		<sonar-maven-plugin.version>2.4</sonar-maven-plugin.version>
+		<start-class>com.springboot.SpringBootSpringRestfulWithSpringJDBCWarApp</start-class>
+	</properties>
+
+	<dependencies>
+	
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- <exclusions>
+					<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-tomcat</artifactId>
+					</exclusion>
+				</exclusions> -->
+		</dependency>
+		
+		<!-- OR -->
+		<!-- This generated war will not contain this jar(tomcat container) -->
+		<!-- Uncomment this when deploying to external servlet container -->
+		<!-- <dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-tomcat</artifactId>
+				<scope>provided</scope>
+		</dependency> -->
+		
+		<!-- If you want to use embedded jetty server instead of embedded standalone tomcat server -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
+			<scope>provided</scope>
+		</dependency> -->
+		<!-- #################################################################################################### -->
+		<!-- To see REST responses in xml format -->
+		<!-- <dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency> -->
+		<!-- ######################################################################################################## -->
+		<!-- Required for form or input data validation -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency> -->
+		<!-- It will be added by default to build path when we add starter web dependency -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</dependency> -->
+		<!-- ######################################################################################### -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>taglibs</groupId>
+			<artifactId>standard</artifactId>
+			<version>1.1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>jquery</artifactId>
+			<version>${jquery.version}</version>
+		</dependency>
+		<!-- Optional, for bootstrap -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>${bootstrap.version}</version>
+		</dependency>
+		<!-- Optional, for angularjs -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angularjs</artifactId>
+			<version>${angularjs.version}</version>
+		 </dependency>
+		<!-- ############################################################################################### -->
+		<!-- <dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-lang3</artifactId>
+		</dependency> -->
+		<!-- ################################################################################################## -->
+		<!-- we can use either spring jdbc or spring data jpa , any one if fine -->
+		<!-- Required for DB connectivity -->
+		<!-- Using Tomcat JDBC CP -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+			<exclusions>
+		        <exclusion>
+			        <groupId>org.apache.tomcat</groupId>
+			        <artifactId>tomcat-jdbc</artifactId>
+		     	</exclusion>
+		     	<!-- <exclusion>
+					<groupId>com.zaxxer</groupId>
+					<artifactId>HikariCP</artifactId>
+				</exclusion> -->
+    		</exclusions>
+		</dependency>
+
+		<!-- ################################################################################################## -->
+		<!-- 
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+		-->
+		<!-- OR -->
+		<!-- Apache DBCP CP -->
+		 <!-- <dependency>
+               <groupId>commons-dbcp</groupId>
+               <artifactId>commons-dbcp</artifactId>
+		</dependency> -->
+		<!-- OR -->
+		<!-- Apache DBCP2 CP -->
+		 <!-- <dependency>
+               <groupId>org.apache.commons</groupId>
+               <artifactId>commons-dbcp2</artifactId>
+		</dependency> -->
+		<!-- ######################################################################################################## -->
+		<dependency>
+		    	<groupId>com.h2database</groupId>
+		   		<artifactId>h2</artifactId>
+		    	<scope>runtime</scope>
+		</dependency>
+		<!-- A In memory DB -->
+		<!-- <dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<scope>runtime</scope>
+		</dependency> -->
+		<!-- <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency> -->
+		<!-- <dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc8</artifactId>
+			<version>12.2.0</version>
+		</dependency> -->
+		<!-- ######################################################################################################### -->
+		<!-- 
+		For enabling swagger2 feature :
+		step-1	, added below 2 dependencies . 
+		step-2 Add Swagger2Config.java in config folder.
+		step-3 http://localhost:8080/springboot_springREST_war_without_db_connectivity_using_anno_and_anno_based_cfgn-0.0.1-SNAPSHOT/v2/api-docs , http://localhost:8080/springboot_springREST_war_without_db_connectivity_using_anno_and_anno_based_cfgn-0.0.1-SNAPSHOT/swagger-ui.html
+		-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.6.1</version>
+		</dependency>
+		<!-- ##########################################################################################################-->
+		<dependency>
+		   <groupId>org.springframework.boot</groupId>
+		   <artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!-- ########################################################################################################## -->
+		<!-- <dependency>
+		   <groupId>org.springframework.boot</groupId>
+		   <artifactId>spring-boot-starter-security</artifactId>
+		</dependency> -->
+		<!-- ############################################################################################################# -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		<!-- ############################################################################################################# -->
+		<!-- Required for unit testing  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+		
+	</dependencies>
+	<build>
+	<finalName>springboot_springREST_springJDBC_angjs_war</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>${sonar-maven-plugin.version}</version>
+			</plugin>
+		</plugins>
+	</build>
+	<!-- <repositories>
+		<repository>
+			<id>repository.spring.release</id>
+			<name>Spring GA Repository</name>
+			<url>http://repo.spring.io/release</url>
+		</repository>
+	</repositories> -->
+</project>

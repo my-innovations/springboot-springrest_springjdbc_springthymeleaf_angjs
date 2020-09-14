@@ -1,0 +1,15 @@
+
+#How To Test:	
+	# Select main class ->run as ->run configuration>
+	# Choose SpringBoot tab -> choose project name and main class ->choose profile name from drop down -> choose arguments tab -> put -Dspring.profile.active=dev -> run
+	# Choose SpringBoot tab -> choose project name and main class ->choose profile name from drop down -> choose arguments tab -> put -Dspring.profile.active=prod
+	
+	# mvn spring-boot:run
+	#OR
+	# default profile for dev env
+	# mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=default
+	# mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=qa
+	# mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=uat
+	# mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=prod
+	
+	# docker run -d -e "spring.profiles.active=prod" punya11/punya-users-ms
